@@ -1,0 +1,52 @@
+input = {
+    variables : [“a”,”name”,...];
+    dependencies :
+    [
+        {
+        left : [“a”,”b”],
+        right : [“c”,”d”]
+        }, //ab -> cd
+        {
+        }
+    ],
+    closure :
+    [
+        {
+            left : {“a”,”b”},
+            right : {“a”,”b”,“c”,”d”}
+        }, //ab+ = abcd
+        {
+
+        }
+    ]
+}
+
+
+
+
+result = [steps,steps,steps]
+
+steps = 
+{
+    variables : [“a”,”name”,...];
+    dependencies :
+    [
+        {
+        left : [“a”,”b”],
+        right : [“c”,”d”]
+        }, //ab -> cd
+        {
+        }
+    ],
+    closure :
+    [
+        {
+            left : {“a”,”b”},
+            right : {“a”,”b”,“c”,”d”}
+        }, //ab+ = abcd
+        {
+
+        }
+    ]
+    message : “”;
+}
