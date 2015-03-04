@@ -1,0 +1,38 @@
+<html>
+<head>
+    <title>VisuDB</title>
+
+    <script src="js/external/jquery-1.10.2.js"></script>
+    <script src="js/external/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css"> 
+    <script src="js/NFTester.js"></script>
+    <script src="js/canvasDraw.js"></script>
+    <script src="js/canvasTest.js"></script>
+    <script src="js/animationWidget.js"></script>
+    <script src="js/animationTest.js"></script>
+</head>
+<body>
+    <div style="height:200px">
+        <div id="main_canvas">
+            <div class="box variables">
+                List of attributes : 
+                <div id="variables"></div>
+            </div>
+            <div class="box dependencies">
+                List of functional dependencies :
+                <ul id="dependencies"></ul>
+            </div>
+        </div>
+        <div id="step_buttons">
+            Step Buttons :
+            <ul id="clickable_buttons">
+            </ul>
+        </div>
+    </div>
+    <div id="annotation_text"></div>
+</body>
+</html>
+
+<script>
+beginTestNFAnimation();
+</script>

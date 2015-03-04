@@ -49,4 +49,10 @@ steps =
         }
     ]
     message : “”;
+    annotation : "";
+    highlightedDependencies : [] //list of index of which FD you want to highlight
+    highlightedAttributes : [] //list of index of which attributes you want to highlight
 }
+
+
+

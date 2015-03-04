@@ -1,0 +1,56 @@
+html {
+    font-family : "Verdana";
+}
+#main_canvas {
+    width : 600px;
+    margin-left : 10px;
+    float:left;
+    height : inherit;
+    overflow:auto;
+}
+
+#main_canvas .box.variables {
+    background-color : red;
+    padding : 10px 10px 10px 10px;
+    margin-left : 10px;
+    width : 280px;
+    height : inherit;
+    float:left;
+    overflow : auto;
+}
+
+#main_canvas .box.dependencies {
+    background-color : yellow;
+    padding : 10px 10px 10px 10px;
+    margin-left : 310px;
+    height : inherit;
+    overflow : auto;
+}
+
+.highlighted {
+    color:orange;
+}
+
+#step_buttons {
+    background-color : gray;
+    height:inherit;
+    overflow: auto;
+    padding : 10px 10px 10px 10px;
+    margin-left : 610px;
+}
+
+#step_buttons #clickable_buttons li {
+    cursor:pointer;
+}
+
+#annotation_text {
+    background-color:orange;
+    display:block;
+    height:100px;
+    padding : 10px 10px 10px 10px;
+    overflow:auto;
+}
+
+
+
+
