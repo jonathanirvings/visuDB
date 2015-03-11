@@ -1,5 +1,26 @@
 var MinimalCover = function() {
-	
+
+    var test =
+    {
+        variables : ["a","b","c","d"],
+        dependencies :
+        [
+            {
+                left : ["a","b"],
+                right : ["c","d"]
+            },
+            {
+                left : ["b"],
+                right : ["c"]
+            },
+            {
+                left : ["a"],
+                right : ["c"]
+            }
+        ]
+    }
+    //makeSingleton(test);
+
     function redundantFD(relation) {
         var currentState = new Object();
         var dependencies = relation["dependencies"];
@@ -45,6 +66,30 @@ var MinimalCover = function() {
     	}
     }
 
+    function makeSingleton(relation) {
+        //var currentState = new Object();
+        var dependencies = relation["dependencies"];
+        var closure = relation["closure"];
+
+        for (var i = 0; i < dependencies.length; i++) {
+            while(dependencies[i].right.length > 1) {
+                //Create a new FD for LHS -> Last attr of RHS
+                temp = new Object();
+                temp.left = dependencies[i].left.slice();
+                temp.right= [dependencies[i].right[dependencies[i].right.length - 1]];
+                dependencies.push(temp);
+
+                //Remove the last attr from the current FD
+                dependencies[i].right.splice(dependencies[i].right.length - 1, 1);
+            }
+        }
+
+    }
+
+    function removeExtraAttributes(relation) {
+       
+    }
+
     function isASubset(currentClosure, left) {
     	for (var i = 0; i < left.lengh; i++) {
     		var found = false;
@@ -62,3 +107,5 @@ var MinimalCover = function() {
     	return true;
     }
 }
+
+//var a = new MinimalCover();
