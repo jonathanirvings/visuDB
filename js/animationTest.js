@@ -24,26 +24,31 @@ function beginTestNFAnimation() {
 
     var test2 = //in 2NF
     {
-        variables : ["a","b","c"],
+        variables : ["a","b","c","d"],
         dependencies :
         [
+            {
+                left : ["a","b"],
+                right : ["c"]
+            },
             {
                 left : ["a"],
                 right : ["b"]
             },
             {
-                left : ["b"],
-                right : ["a"]
-            },
-            {
-                left : ["b"],
+                left : ["d"],
                 right : ["c"]
             }
         ]
     }
 
     nf = new NFTester(test2);
-    nf.TwoNFTest();
+    //nf.TwoNFTest();
+
+    cf = new ClosureFinder(test2);
+    console.log(cf.getClosure(['a']));
+    //console.log(cf.getClosure(['b']));
+    //console.log(cf.getClosure(['c','b']));
 }
 
 function beginTestAnimation() {

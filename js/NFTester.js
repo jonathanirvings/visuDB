@@ -150,7 +150,6 @@ var NFTester = function(_relation) {
         currentState["annotation"] = "All FDs satifies 2NF. The relation satifies 2NF.";
         stateList.push(currentState);
 
-        console.log(stateList.length);
         animationWidget.startAnimation(stateList);
         return twoNF;
     }
