@@ -1,26 +1,5 @@
 var MinimalCover = function() {
 
-    var test =
-    {
-        variables : ["a","b","c","d"],
-        dependencies :
-        [
-            {
-                left : ["a","b"],
-                right : ["c","d"]
-            },
-            {
-                left : ["b"],
-                right : ["c"]
-            },
-            {
-                left : ["a"],
-                right : ["c"]
-            }
-        ]
-    }
-    //makeSingleton(test);
-
     function redundantFD(relation) {
         var currentState = new Object();
         var dependencies = relation["dependencies"];
@@ -69,7 +48,6 @@ var MinimalCover = function() {
     function makeSingleton(relation) {
         //var currentState = new Object();
         var dependencies = relation["dependencies"];
-        var closure = relation["closure"];
 
         for (var i = 0; i < dependencies.length; i++) {
             while(dependencies[i].right.length > 1) {
@@ -86,8 +64,34 @@ var MinimalCover = function() {
 
     }
 
-    function removeExtraAttributes(relation) {
-       
+    this.removeExtraAttributes = function(relation) {
+        var masterRelation = JSON.parse(JSON.stringify(relation));
+        var dependencies = masterRelation["dependencies"];
+        //var closure = relation["closure"];
+
+        var masterClosure = new ClosureFinder(masterRelation); //rely on existing closure anot?
+
+        for (var i = 0; i < dependencies.length; i++) {
+            var leftAttrClosure = masterClosure.getClosure(dependencies[i].left);
+
+            for (var j = 0; j < dependencies[i].left.length; j++) {
+                //Clone relation
+                var tempRelation = JSON.parse(JSON.stringify(masterRelation));
+
+                //Remove the j attr from the current FD
+                tempRelation["dependencies"][i].left.splice(j, 1);
+
+                //Check if same closure
+                var tempClosure = new ClosureFinder(tempRelation);
+                var tempLeftAttrClosure = tempClosure.getClosure(tempRelation["dependencies"][j].left);
+                if(Utility.isEqual(leftAttrClosure, tempLeftAttrClosure)) {
+                    //Extra LHS Attribute Found! Remove!
+                    masterRelation = tempRelation;
+                }
+
+            }
+        }
+        return masterRelation;
     }
 
     function isASubset(currentClosure, left) {
@@ -107,5 +111,3 @@ var MinimalCover = function() {
     	return true;
     }
 }
-
-//var a = new MinimalCover();

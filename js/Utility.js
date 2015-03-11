@@ -46,6 +46,10 @@ Utility.union = function(left,right) {
     return union;
 }
 
-
+Utility.isEqual = function (left, right) {
+    if(Utility.isSubset(left,right) && Utility.isSubset(right,left))
+        return true;
+    return false;
+}
 
 
