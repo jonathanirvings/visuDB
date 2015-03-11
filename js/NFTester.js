@@ -41,11 +41,20 @@ var NFTester = function(_relation) {
         return false;
     }
 
+    function isSuperKey(attributes) {
+        for (var i = 0; i < listOfKeys.length; ++i) {
+            if (Utility.isSubset(listOfKeys[i],attributes)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     //2NF <=> all FD X->{A}
     //X -> {A} is trivial, or
     //X is not a proper subset of a candidate key, or
     //A is a prime attribute
-    this.TwoNFTest = function() {
+    this.TwoNFTest = function(stateList) {
 
         var stateList = [];
         var currentState = new Object();
@@ -101,7 +110,7 @@ var NFTester = function(_relation) {
                 currentState = new Object();
                 currentState["variables"] = relation["variables"];
                 currentState["dependencies"] = relation["dependencies"];
-                currentState["annotation"] = "Left hand is not a proper subset of any key";
+                currentState["annotation"] = "Left hand is not a proper subset of any key. FD satisfies 2NF";
                 currentState.highlightedDependencies = [i];
                 stateList.push(currentState);
 
@@ -144,13 +153,14 @@ var NFTester = function(_relation) {
             }
         }
 
-        currentState = new Object();
-        currentState["variables"] = relation["variables"];
-        currentState["dependencies"] = relation["dependencies"];
-        currentState["annotation"] = "All FDs satifies 2NF. The relation satifies 2NF.";
-        stateList.push(currentState);
+        if (twoNF) {
+            currentState = new Object();
+            currentState["variables"] = relation["variables"];
+            currentState["dependencies"] = relation["dependencies"];
+            currentState["annotation"] = "All FDs satifies 2NF. The relation satifies 2NF.";
+            stateList.push(currentState);
+        }
 
-        animationWidget.startAnimation(stateList);
         return twoNF;
     }
 
@@ -158,9 +168,112 @@ var NFTester = function(_relation) {
     //X -> {A} is trivial, or
     //X is a superkey
     //A is a prime attribute
-    this.ThreeNFTest = function(relation) {
-        //TODO
-        return true;
+    this.ThreeNFTest = function(stateList) {
+        var currentState = new Object();
+        currentState["variables"] = relation["variables"];
+        currentState["dependencies"] = relation["dependencies"];
+        currentState["annotation"] = "Key = [";// + listOfKeys;
+        for (var i = 0; i < listOfKeys.length; ++i) {
+            if (i > 0) currentState["annotation"] += ",";
+            currentState["annotation"] += "[";
+            for (var j = 0; j < listOfKeys[i].length; ++j) {
+                if (j > 0) currentState["annotation"] += ",";
+                currentState["annotation"] += listOfKeys[i][j];
+            }
+            currentState["annotation"] += "]";
+        }
+        currentState["annotation"] += "]";
+        stateList.push(currentState);
+
+        var threeNF = true;
+        for (var i = 0; i < relation.dependencies.length; ++i) {
+            currentState = new Object();
+            currentState["variables"] = relation["variables"];
+            currentState["dependencies"] = relation["dependencies"];
+            currentState["annotation"] = "Checking FD " + currentState.dependencies[i].left + " -> "
+                                         + currentState.dependencies[i].right;
+            currentState.highlightedDependencies = [i];
+            stateList.push(currentState);
+
+            var leftRelation = relation.dependencies[i].left;
+            var rightRelation = relation.dependencies[i].right;
+            var OK = false;
+
+            if (!OK && Utility.isSubset(rightRelation,leftRelation)) {
+                currentState = new Object();
+                currentState["variables"] = relation["variables"];
+                currentState["dependencies"] = relation["dependencies"];
+                currentState["annotation"] = "Right hand is a subset of left hand. This is a trivial FD. FD satifies 3NF";
+                currentState.highlightedDependencies = [i];
+                stateList.push(currentState);
+
+                OK = true;
+            } else if (!OK) {
+                currentState = new Object();
+                currentState["variables"] = relation["variables"];
+                currentState["dependencies"] = relation["dependencies"];
+                currentState["annotation"] = "Right hand is NOT a subset of left hand. This is not a trivial FD";
+                currentState.highlightedDependencies = [i];
+                stateList.push(currentState);
+            }
+
+
+            if (!OK && isSuperKey(leftRelation)) {
+                currentState = new Object();
+                currentState["variables"] = relation["variables"];
+                currentState["dependencies"] = relation["dependencies"];
+                currentState["annotation"] = "Left hand is a superkey. FD satisfies 3NF";
+                currentState.highlightedDependencies = [i];
+                stateList.push(currentState);
+
+                OK = true;
+            } else if (!OK) {
+                currentState = new Object();
+                currentState["variables"] = relation["variables"];
+                currentState["dependencies"] = relation["dependencies"];
+                currentState["annotation"] = "Left hand is not a superkey";
+                currentState.highlightedDependencies = [i];
+                stateList.push(currentState);
+            }
+
+            for (var j = 0; j < rightRelation.length; ++j) {
+                if (OK) {
+                    break;
+                }
+                if (isPrimeAttribute(rightRelation[j])) {
+                    currentState = new Object();
+                    currentState["variables"] = relation["variables"];
+                    currentState["dependencies"] = relation["dependencies"];
+                    currentState["annotation"] = rightRelation[j] + " is a prime attribute. FD satisfies 3NF";
+                    currentState.highlightedDependencies = [i];
+                    stateList.push(currentState);
+
+                    OK = true;
+                }
+            }
+            
+            if (!OK) {
+                currentState = new Object();
+                currentState["variables"] = relation["variables"];
+                currentState["dependencies"] = relation["dependencies"];
+                currentState["annotation"] = "This FD violates 3NF. Therefore, this is not in 3NF";
+                currentState.highlightedDependencies = [i];
+                stateList.push(currentState);
+                threeNF = false;
+
+                break;
+            }
+        }
+
+        if (threeNF) {
+            currentState = new Object();
+            currentState["variables"] = relation["variables"];
+            currentState["dependencies"] = relation["dependencies"];
+            currentState["annotation"] = "All FDs satifies 2NF. The relation satifies 2NF.";
+            stateList.push(currentState);
+        }
+
+        return threeNF;
     }
 
     this.EKNFTest = function(relation) {
