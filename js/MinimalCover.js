@@ -1,64 +1,67 @@
-var MinimalCover = function() {
+var MinimalCover = function(_relation) {
 	
-    function redundantFD(relation) {
-        var currentState = new Object();
-        var dependencies = relation["dependencies"];
-        var closure = relation["closure"];
+	this.relation = _relation;
 
-        var tempClosure = [];
-        var rightHandSide = [];
-
-        if (dependencies.length == 1) 
-        	return true;
-
-        for (var i = 0; i < dependencies.left.length; i++) {
-        	rightHandSide = dependencies[i].right;
-        	tempClosure = closure[i].right;
-
-        	for (var j = 0; j < rightHandSide.length; j++) {
-        		var index = tempClosure.indexOf(rightHandSize[j]);
-        		if (index > -1) {
-        			tempClosure.splice(index, 1);
-        		}
-        	}
-
-        	lookForRightHandSide(currentIdx, tempClosure, rightHandSide, dependencies);
-        }
-    }
-
-    function lookForRightHandSide(currentIdx, tempClosure, right, dependencies) {
-    	keyToLook = right;
-    	for (var i = 0; i < dependencies.left.length; i++) {
-    		if ( i != currentIdx ) {
-    			leftHandSide = dependencies[i].left;
-    			if (isASubset(tempClosure, leftHandSide)) {
-    				rightHandSide = dependencies[i].right;
-    			    removeKeyToLookFor(rightHandSide, keyToLook);
-    			}
+this.something = function redundantFD(relation) {
+    	var filter = new Array();
+    	for (var i = 0; i < relation.dependencies.length; i++) {
+    		var currentIdx = i;
+    		var temp = new Object();
+    		temp.variables = relation.variables.slice();
+    		temp.dependencies = new Array();
+    		temp.dependencies = populateDependencies(relation, currentIdx, filter);
+    		
+    		var closureFinder = new ClosureFinder(temp);
+    		closureWithoutCurrFD = closureFinder.getClosure(relation.dependencies[i].left);
+    		
+    		if (!closureContainsRight(closureWithoutCurrFD, relation.dependencies[i].right)) {
+    			filter.push(i);
     		}
     	}
+
+     	relation.dependencies = populateDependencies(relation, -1, filter);
     }
 
-    function removeKeyToLookFor(right, keyToLook) {
+    function closureContainsRight(closure, right) {
     	for (var i = 0; i < right.length; i++) {
-    		
-    	}
-    }
-
-    function isASubset(currentClosure, left) {
-    	for (var i = 0; i < left.lengh; i++) {
-    		var found = false;
-    		var currentKey = left[i];
-    		
-    		for (var j = 0; j < currentClosure.length; j++) {
-    			if (currentClosure[j] == currentKey) {
-    				found = true;
-    			}
+    		if (closure.indexOf(right[i]) == -1) {
+    			return false;
     		}
-
-    		if (!found) return false;
     	}
-
     	return true;
     }
+
+    function populateDependencies(relation, currentIdx, filter) {
+    	var temp = new Array();
+    	for (var i = 0; i < relation.dependencies.length; i++) {
+    		if (i != currentIdx && filter.indexOf(i) > -1) {
+    			temp.push(relation.dependencies[i]);
+    		}
+    	}
+    	return temp;
+    }
 }
+
+var test =
+{
+    variables : ["a","b","c"],
+    dependencies :
+    [
+        {
+            left : ["a","b"],
+            right : ["a"]
+        },
+        {
+            left : ["b"],
+            right : ["c"]
+        },
+        {
+            left : ["a"],
+            right : ["c"]
+        }
+    ]
+}
+
+var minimalCover = new MinimalCover(test);
+minimalCover.something(test);
+console.log(minimalCover.relation.dependencies);
