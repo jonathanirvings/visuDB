@@ -169,7 +169,7 @@ var NFTester = function(_relation) {
     //X -> {A} is trivial, or
     //X is a superkey
     //A is a prime attribute
-    this.ThreeNFTest = function(relation) {
+    this.ThreeNFTest = function() {
         var stateList = [];
         var currentState = new Object();
         currentState["variables"] = relation["variables"];
