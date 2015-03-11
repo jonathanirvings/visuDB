@@ -52,4 +52,12 @@ Utility.isEqual = function (left, right) {
     return false;
 }
 
+Utility.isInside = function(attribute, set) {
+    for (var i = 0; i < set.length; ++i) {
+        if (set[i] == attribute) {
+            return true;
+        }
+    }
+    return false;
+}
 

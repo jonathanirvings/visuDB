@@ -30,7 +30,7 @@ function MainButton() {
     }
 
     this.test = function() {
-        relation = //in 2NF
+        relation =
         {
             variables : ["a","b","c","d"],
             dependencies :
@@ -44,7 +44,35 @@ function MainButton() {
                     right : ["b"]
                 },
                 {
-                    left : ["d"],
+                    left : ["a"],
+                    right : ["c"]
+                },
+                {
+                    left : ["b"],
+                    right : ["a"]
+                }
+            ]
+        }
+
+        relation =
+        {
+            variables : ["a","b","c","d","youngsing"],
+            dependencies :
+            [
+                {
+                    left : ["a","b"],
+                    right : ["a"]
+                },
+                {
+                    left : ["a","b"],
+                    right : ["c", "d"]
+                },
+                {
+                    left : ["b"],
+                    right : ["a","c"]
+                },
+                {
+                    left : ["a"],
                     right : ["c"]
                 }
             ]
