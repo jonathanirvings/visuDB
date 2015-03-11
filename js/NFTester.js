@@ -43,7 +43,7 @@ var NFTester = function(_relation) {
 
     function isSuperKey(attributes) {
         for (var i = 0; i < listOfKeys.length; ++i) {
-            if (Utility.subset(listOfKeys[i],attributes)) {
+            if (Utility.isSubset(listOfKeys[i],attributes)) {
                 return true;
             }
         }
@@ -54,7 +54,7 @@ var NFTester = function(_relation) {
     //X -> {A} is trivial, or
     //X is not a proper subset of a candidate key, or
     //A is a prime attribute
-    this.TwoNFTest = function() {
+    this.TwoNFTest = function(stateList) {
 
         var stateList = [];
         var currentState = new Object();
@@ -161,7 +161,6 @@ var NFTester = function(_relation) {
             stateList.push(currentState);
         }
 
-        animationWidget.startAnimation(stateList);
         return twoNF;
     }
 
@@ -169,8 +168,7 @@ var NFTester = function(_relation) {
     //X -> {A} is trivial, or
     //X is a superkey
     //A is a prime attribute
-    this.ThreeNFTest = function() {
-        var stateList = [];
+    this.ThreeNFTest = function(stateList) {
         var currentState = new Object();
         currentState["variables"] = relation["variables"];
         currentState["dependencies"] = relation["dependencies"];
@@ -275,7 +273,6 @@ var NFTester = function(_relation) {
             stateList.push(currentState);
         }
 
-        animationWidget.startAnimation(stateList);
         return threeNF;
     }
 

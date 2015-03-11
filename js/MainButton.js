@@ -23,4 +23,34 @@ function MainButton() {
         cs.getClosure(attributes);
         canvasDraw.draw(relation);
     }
+
+    this.bernsteinAlgorithm = function() {
+        ba = new BernsteinAlgorithm(relation);
+        ba.beginAlgorithm();
+    }
+
+    this.test = function() {
+        relation = //in 2NF
+        {
+            variables : ["a","b","c","d"],
+            dependencies :
+            [
+                {
+                    left : ["a","b"],
+                    right : ["c"]
+                },
+                {
+                    left : ["a"],
+                    right : ["b"]
+                },
+                {
+                    left : ["d"],
+                    right : ["c"]
+                }
+            ]
+        }
+        canvasDraw.draw(relation);
+    }
 }
+
+

@@ -1,7 +1,7 @@
 function animationWidget() {}
 
 animationWidget.startAnimation = function(stateList) {
-    $("#clickable_buttons").html();
+    $("#clickable_buttons").html("");
     canvasDraw.clearCanvas();
 
     for (var i = 0; i < stateList.length; ++i) {

@@ -35,6 +35,8 @@
                 <div id="operation_buttons">
                     <input id="closure_form"></input>
                     <button onclick=findClosure()>Find the closure</button>
+                    <button onclick=test()>Test</button>
+                    <button onclick=bernsteinAlgorithm()>Bernstein Algorithm</button>
                 </div>
             </div>
         </div>
@@ -108,5 +110,13 @@ function findClosure() {
         attributes[i] = attributes[i].trim();
     }
     mB.findClosure(attributes);
+}
+
+function bernsteinAlgorithm() {
+    mB.bernsteinAlgorithm();
+}
+
+function test() {
+    mB.test();
 }
 </script>
