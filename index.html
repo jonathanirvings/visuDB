@@ -1,0 +1,61 @@
+<html>
+<head>
+    <title>VisuDB</title>
+
+    <script src="js/external/jquery-1.10.2.js"></script>
+    <script src="js/external/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css"> 
+    <script src="js/Utility.js"></script>
+    <script src="js/ClosureFinder.js"></script>
+    <script src="js/findCandidateKey.js"></script>
+    <script src="js/NFTester.js"></script>
+    <script src="js/canvasDraw.js"></script>
+    <script src="js/canvasTest.js"></script>
+    <script src="js/animationWidget.js"></script>
+    <script src="js/animationTest.js"></script>
+    <script src="js/MinimalCover.js"></script>
+</head>
+<body>
+ <div style="width:100%; height:780px; overflow:hidden">
+    <div id="inner-box">
+        <div id="input_box">
+            <div id="input_box_inner">
+                Input here
+            </div>
+        </div>
+        <div style="height:400px;">
+            <div id="main_canvas">
+                <div class="box variables">
+                    <div id="box_variables_inner">
+                        List of attributes : 
+                        <div id="variables"></div>
+                    </div>
+                </div>
+            <div class="box dependencies">
+                <div id="box_dependencies_inner">
+                    List of functional dependencies :
+                    <ul id="dependencies"></ul>
+                </div>
+            </div>
+            <div id="annotation_text">
+                <div id="annotation_text_inner">
+                </div>
+            </div>
+        </div>
+
+        <div id="step_buttons">
+            <div id="step_buttons_inner">
+                Step Buttons :
+                <ul id="clickable_buttons">
+                </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+ </div>
+</body>
+</html>
+
+<script>
+beginTestNFAnimation();
+</script>

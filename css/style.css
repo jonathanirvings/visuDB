@@ -2,28 +2,31 @@ html {
     font-family : "Verdana";
 }
 #main_canvas {
-    width : 600px;
-    margin-left : 10px;
+    width : 40%;
+    /*margin-left : 10px;*/
     float:left;
-    height : 200px;
-    overflow:auto;
+    height : 500px;
+    background:black;
+    overflow: hidden;
 }
 
 #main_canvas .box.variables {
     background-color : red;
-    padding : 10px 10px 10px 10px;
-    margin-left : 10px;
-    width : 280px;
-    height : inherit;
+    /*padding : 10px 10px 10px 10px;*/
+    /*margin-left : 10px;*/
+    width : 50%;
+    height : 300px;
     float:left;
     overflow : auto;
 }
 
 #main_canvas .box.dependencies {
     background-color : yellow;
-    padding : 10px 10px 10px 10px;
-    margin-left : 310px;
-    height : inherit;
+    /*padding : 10px 10px 10px 10px;*/
+    /*margin-left : 310px;*/
+    float:left;
+    width: 50%;
+    height : 300px;
     overflow : auto;
 }
 
@@ -33,10 +36,29 @@ html {
 
 #step_buttons {
     background-color : gray;
-    height:inherit;
+    height:500px;
+    width:60%;
     overflow: auto;
-    padding : 10px 10px 10px 10px;
-    margin-left : 610px;
+    float: left;
+    /*padding : 10px 10px 0px 10px;*/
+    /*margin-left : 610px;*/
+}
+
+#inner-box {
+    margin: 0 auto; 
+    width:90%;
+}
+
+#input_box {
+    width:100%; 
+    background:green; 
+    height:300px;
+}
+
+#step_buttons_inner, #annotation_text_inner,
+#box_dependencies_inner, #box_variables_inner,
+#input_box_inner {
+    padding: 10px;
 }
 
 #step_buttons #clickable_buttons li {
@@ -46,9 +68,9 @@ html {
 #annotation_text {
     background-color:orange;
     display:block;
-    height:100px;
-    width:580px;
-    margin-top : -100px;
+    height:200px;
+    width: 100%;
+    /*margin-top : -100px;*/
     padding : 10px 10px 10px 10px;
     overflow:auto;
 }
