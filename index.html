@@ -13,6 +13,8 @@
     <script src="js/canvasTest.js"></script>
     <script src="js/animationWidget.js"></script>
     <script src="js/animationTest.js"></script>
+    <script src="js/MainButton.js"></script>
+    <script src="js/BernsteinAlgorithm.js"></script>
     <script src="js/MinimalCover.js"></script>
 </head>
 <body>
@@ -20,7 +22,20 @@
     <div id="inner-box">
         <div id="input_box">
             <div id="input_box_inner">
-                Input here
+                <div id="add_attribute">
+                    <div>Attributes to add :</div>
+                    <input id="attribute_form"></input>
+                    <button onclick=addAttribute()>Add attribute</button>
+                </div>
+                <div id="add_fd">
+                    <div>Functional Dependency to add :</div>
+                    <input id="fd_left_form"></input>-><input id="fd_right_form"></input>
+                    <button onclick=addFD()>Add functional dependency</button>
+                </div>
+                <div id="operation_buttons">
+                    <input id="closure_form"></input>
+                    <button onclick=findClosure()>Find the closure</button>
+                </div>
             </div>
         </div>
         <div style="height:400px;">
@@ -57,5 +72,41 @@
 </html>
 
 <script>
-beginTestNFAnimation();
+mB = new MainButton();
+
+function addAttribute() {
+    attributesToAdd = $("#attribute_form").val();
+    $("#attribute_form").val("");
+    attributesToAdd = attributesToAdd.split(',');
+    for (var i = 0; i < attributesToAdd.length; ++i) {
+        attributesToAdd[i] = attributesToAdd[i].trim();
+        mB.addAttribute(attributesToAdd[i]);
+    }
+}
+
+function addFD() {
+    FDToAddLeft = $("#fd_left_form").val();
+    FDToAddRight = $("#fd_right_form").val();
+    $("#fd_left_form").val("");
+    $("#fd_right_form").val("");
+    FDToAddLeft = FDToAddLeft.split(',');
+    FDToAddRight = FDToAddRight.split(',');
+    for (var i = 0; i < FDToAddLeft.length; ++i) {
+        FDToAddLeft[i] = FDToAddLeft[i].trim();
+    }
+    for (var i = 0; i < FDToAddRight.length; ++i) {
+        FDToAddRight[i] = FDToAddRight[i].trim();
+    }
+    mB.addFD(FDToAddLeft,FDToAddRight);
+}
+
+function findClosure() {
+    attributes = $("#closure_form").val();
+    $("#closure_form").val("");
+    attributes = attributes.split(',');
+    for (var i = 0; i < attributes.length; ++i) {
+        attributes[i] = attributes[i].trim();
+    }
+    mB.findClosure(attributes);
+}
 </script>

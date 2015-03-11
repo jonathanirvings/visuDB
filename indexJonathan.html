@@ -18,40 +18,56 @@
     <script src="js/MinimalCover.js"></script>
 </head>
 <body>
-    <div id="input_canvas">
-        <div id="add_attribute">
-            <div>Attributes to add :</div>
-            <input id="attribute_form"></input>
-            <button onclick=addAttribute()>Add attribute</button>
-        </div>
-        <div id="add_fd">
-            <div>Functional Dependency to add :</div>
-            <input id="fd_left_form"></input>-><input id="fd_right_form"></input>
-            <button onclick=addFD()>Add functional dependency</button>
-        </div>
-        <div id="operation_buttons">
-            <input id="closure_form"></input>
-            <button onclick=findClosure()>Find the closure</button>
-        </div>
-    </div>
-    <div style="height:300px;">
-        <div id="main_canvas">
-            <div class="box variables">
-                List of attributes : 
-                <div id="variables"></div>
+ <div style="width:100%; height:780px; overflow:hidden">
+    <div id="inner-box">
+        <div id="input_box">
+            <div id="input_box_inner">
+                <div id="add_attribute">
+                    <div>Attributes to add :</div>
+                    <input id="attribute_form"></input>
+                    <button onclick=addAttribute()>Add attribute</button>
+                </div>
+                <div id="add_fd">
+                    <div>Functional Dependency to add :</div>
+                    <input id="fd_left_form"></input>-><input id="fd_right_form"></input>
+                    <button onclick=addFD()>Add functional dependency</button>
+                </div>
+                <div id="operation_buttons">
+                    <input id="closure_form"></input>
+                    <button onclick=findClosure()>Find the closure</button>
+                </div>
             </div>
+        </div>
+        <div style="height:400px;">
+            <div id="main_canvas">
+                <div class="box variables">
+                    <div id="box_variables_inner">
+                        List of attributes : 
+                        <div id="variables"></div>
+                    </div>
+                </div>
             <div class="box dependencies">
-                List of functional dependencies :
-                <ul id="dependencies"></ul>
+                <div id="box_dependencies_inner">
+                    List of functional dependencies :
+                    <ul id="dependencies"></ul>
+                </div>
+            </div>
+            <div id="annotation_text">
+                <div id="annotation_text_inner">
+                </div>
             </div>
         </div>
+
         <div id="step_buttons">
-            Step Buttons :
-            <ul id="clickable_buttons">
-            </ul>
+            <div id="step_buttons_inner">
+                Step Buttons :
+                <ul id="clickable_buttons">
+                </ul>
+            </div>
         </div>
-        <div id="annotation_text"></div>
+      </div>
     </div>
+ </div>
 </body>
 </html>
 
@@ -94,6 +110,3 @@ function findClosure() {
     mB.findClosure(attributes);
 }
 </script>
-
-
-
