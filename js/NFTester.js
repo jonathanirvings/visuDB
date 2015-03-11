@@ -2,7 +2,6 @@ var NFTester = function(_relation) {
     var relation = _relation;
     var keyFinder = new KeyFinder();
     var listOfKeys = keyFinder.findCandidateKey(relation);
-    console.log(listOfKeys);
 
     //return true iff right is the subset of left
     function isTrivial(left, right) {
@@ -21,34 +20,10 @@ var NFTester = function(_relation) {
         return true;
     }
 
-    function isSubset(left,right) {
-        for (var i = 0; i < left.length; ++i) {
-            var found = false;
-            for (var j = 0; j < right.length; ++j) {
-                if (left[i] == right[j]) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    //return true iff left is the proper subset of right
-    function isProperSubset(left,right) {
-        if (left.length == right.length || !isSubset(left,right)) {
-            return false;
-        }
-        return true;
-    }
-
     //return a key that is a proper subset of, or NULL if there is no key satisfies
     function properSubsetOfAKey(attributes) {
         for (var i = 0; i < listOfKeys.length; ++i) {
-            if (isProperSubset(attributes,listOfKeys[i])) {
+            if (Utility.isProperSubset(attributes,listOfKeys[i])) {
                 return listOfKeys[i];
             }
         }
@@ -103,7 +78,7 @@ var NFTester = function(_relation) {
             var rightRelation = relation.dependencies[i].right;
             var OK = false;
 
-            if (!OK && isSubset(rightRelation,leftRelation)) {
+            if (!OK && Utility.isSubset(rightRelation,leftRelation)) {
                 currentState = new Object();
                 currentState["variables"] = relation["variables"];
                 currentState["dependencies"] = relation["dependencies"];
@@ -175,7 +150,6 @@ var NFTester = function(_relation) {
         currentState["annotation"] = "All FDs satifies 2NF. The relation satifies 2NF.";
         stateList.push(currentState);
 
-        console.log(stateList.length);
         animationWidget.startAnimation(stateList);
         return twoNF;
     }

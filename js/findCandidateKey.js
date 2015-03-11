@@ -166,7 +166,6 @@ var KeyFinder = function() {
             candidateKeysArray.push.apply(candidateKeysArray, tempToStoreSomeCandidateKeys);
             tempToStoreSomeCandidateKeys.length = 0;
         }
-        console.log(candidateKeysArray);
         return candidateKeysArray;
 
     }
