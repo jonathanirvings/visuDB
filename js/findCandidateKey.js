@@ -94,14 +94,15 @@ module.exports= {
 		removeByIndex :removeByIndex,
 		removeFunctionalDependencies : removeFunctionalDependencies
 }
-var findCandidateKey = function(rel, relation){
-		var binary = Array.apply(null, new Array(relations.length)).map(Number.prototype.valueOf,0);
+var findCandidateKey = function(relation){
 		var relations = new Array();
-		for(i = 0; i <relation.dependencies ; i+=2){
+		for(i = 0; i <relation.dependencies ; i++){
 			relations[i*2] = relation.dependencies[i].left.slice();
 			relations[i*2+1] = relation.dependencies[i].right.slice();
 
 		}
+		rel = relation.variables;
+		var binary = Array.apply(null, new Array(relations.length)).map(Number.prototype.valueOf,0);
 		ConvertFdToBinary(binary, relations,rel);
 
 		var flag;
