@@ -1,4 +1,8 @@
-var NFTester = function() {
+var NFTester = function(_relation) {
+    var relation = _relation;
+    var keyFinder = new KeyFinder();
+    var listOfKeys = keyFinder.findCandidateKey(relation);
+    console.log(listOfKeys);
 
     //return true iff right is the subset of left
     function isTrivial(left, right) {
@@ -43,7 +47,6 @@ var NFTester = function() {
 
     //return a key that is a proper subset of, or NULL if there is no key satisfies
     function properSubsetOfAKey(attributes) {
-        var listOfKeys = [["a","b","c"]]; //TODO
         for (var i = 0; i < listOfKeys.length; ++i) {
             if (isProperSubset(attributes,listOfKeys[i])) {
                 return listOfKeys[i];
@@ -52,22 +55,41 @@ var NFTester = function() {
         return null;
     }
 
-    function isPrimeAttribute(attributes) {
-        return true; //TODO
+    function isPrimeAttribute(attribute) {
+        for (var i = 0; i < listOfKeys.length; ++i) {
+            for (var j = 0; j < listOfKeys[i].length; ++j) {
+                if (attribute == listOfKeys[i][j]) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     //2NF <=> all FD X->{A}
     //X -> {A} is trivial, or
     //X is not a proper subset of a candidate key, or
     //A is a prime attribute
-    this.TwoNFTest = function(relation) {
+    this.TwoNFTest = function() {
+
         var stateList = [];
         var currentState = new Object();
         currentState["variables"] = relation["variables"];
         currentState["dependencies"] = relation["dependencies"];
-        currentState["annotation"] = "";
-        var twoNF = true;
+        currentState["annotation"] = "Key = [";// + listOfKeys;
+        for (var i = 0; i < listOfKeys.length; ++i) {
+            if (i > 0) currentState["annotation"] += ",";
+            currentState["annotation"] += "[";
+            for (var j = 0; j < listOfKeys[i].length; ++j) {
+                if (j > 0) currentState["annotation"] += ",";
+                currentState["annotation"] += listOfKeys[i][j];
+            }
+            currentState["annotation"] += "]";
+        }
+        currentState["annotation"] += "]";
         stateList.push(currentState);
+
+        var twoNF = true;
         for (var i = 0; i < relation.dependencies.length; ++i) {
             currentState = new Object();
             currentState["variables"] = relation["variables"];
@@ -90,27 +112,43 @@ var NFTester = function() {
                 stateList.push(currentState);
 
                 OK = true;
-            }
-            if (!OK && properSubsetOfAKey(leftRelation) != null) {
+            } else if (!OK) {
                 currentState = new Object();
                 currentState["variables"] = relation["variables"];
                 currentState["dependencies"] = relation["dependencies"];
-                currentState["annotation"] = "Left hand is a proper subset of a key " + properSubsetOfAKey(leftRelation)
-                                             + ". FD satifies 2NF";
+                currentState["annotation"] = "Right hand is NOT a subset of left hand. This is not a trivial FD";
+                currentState.highlightedDependencies = [i];
+                stateList.push(currentState);
+            }
+
+
+            if (!OK && properSubsetOfAKey(leftRelation) == null) {
+                currentState = new Object();
+                currentState["variables"] = relation["variables"];
+                currentState["dependencies"] = relation["dependencies"];
+                currentState["annotation"] = "Left hand is not a proper subset of any key";
                 currentState.highlightedDependencies = [i];
                 stateList.push(currentState);
 
                 OK = true;
+            } else if (!OK) {
+                currentState = new Object();
+                currentState["variables"] = relation["variables"];
+                currentState["dependencies"] = relation["dependencies"];
+                currentState["annotation"] = "Left hand is a proper subset of a key " + properSubsetOfAKey(leftRelation);
+                currentState.highlightedDependencies = [i];
+                stateList.push(currentState);
             }
+
             for (var j = 0; j < rightRelation.length; ++j) {
                 if (OK) {
                     break;
                 }
-                if (isPrimeAttribute(rightRelation)) {
+                if (isPrimeAttribute(rightRelation[j])) {
                     currentState = new Object();
                     currentState["variables"] = relation["variables"];
                     currentState["dependencies"] = relation["dependencies"];
-                    currentState["annotation"] = "Right hand is a prime attribute. FD satisfies 2NF";
+                    currentState["annotation"] = rightRelation[j] + " is a prime attribute. FD satisfies 2NF";
                     currentState.highlightedDependencies = [i];
                     stateList.push(currentState);
 
@@ -137,6 +175,7 @@ var NFTester = function() {
         currentState["annotation"] = "All FDs satifies 2NF. The relation satifies 2NF.";
         stateList.push(currentState);
 
+        console.log(stateList.length);
         animationWidget.startAnimation(stateList);
         return twoNF;
     }

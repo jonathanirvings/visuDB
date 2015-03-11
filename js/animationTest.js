@@ -19,8 +19,8 @@ function beginTestNFAnimation() {
         ]
     }
 
-    nf = new NFTester();
-    nf.TwoNFTest(test);
+    //nf = new NFTester();
+    //nf.TwoNFTest(test);
 
     var test2 = //in 2NF
     {
@@ -33,10 +33,17 @@ function beginTestNFAnimation() {
             },
             {
                 left : ["b"],
+                right : ["a"]
+            },
+            {
+                left : ["b"],
                 right : ["c"]
             }
         ]
     }
+
+    nf = new NFTester(test2);
+    nf.TwoNFTest();
 }
 
 function beginTestAnimation() {
