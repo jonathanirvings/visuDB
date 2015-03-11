@@ -3,12 +3,13 @@ var MinimalCover = function(_relation) {
 	this.relation = _relation;
 
 this.something = function redundantFD(relation) {
-    	var filter = [];
+    	var filter = new Array();
     	for (var i = 0; i < relation.dependencies.length; i++) {
     		var currentIdx = i;
     		var temp = new Object();
     		temp.variables = relation.variables.slice();
-    		temp = populateDependencies(temp, relation, currentIdx, filter);
+    		temp.dependencies = new Array();
+    		temp.dependencies = populateDependencies(relation, currentIdx, filter);
     		
     		var closureFinder = new ClosureFinder(temp);
     		closureWithoutCurrFD = closureFinder.getClosure(relation.dependencies[i].left);
@@ -18,9 +19,7 @@ this.something = function redundantFD(relation) {
     		}
     	}
 
-    	var newRelation = new Object();
-     	newRelation = populateDependencies(newRelation, relation, -1, filter);
-     	relation.dependencies = newRelation.dependencies;
+     	relation.dependencies = populateDependencies(relation, -1, filter);
     }
 
     function closureContainsRight(closure, right) {
@@ -32,10 +31,11 @@ this.something = function redundantFD(relation) {
     	return true;
     }
 
-    function populateDependencies(temp, relation, currentIdx, filter) {
+    function populateDependencies(relation, currentIdx, filter) {
+    	var temp = new Array();
     	for (var i = 0; i < relation.dependencies.length; i++) {
     		if (i != currentIdx && filter.indexOf(i) > -1) {
-    			temp.dependencies.push(relation.dependencies[i]);
+    			temp.push(relation.dependencies[i]);
     		}
     	}
     	return temp;
