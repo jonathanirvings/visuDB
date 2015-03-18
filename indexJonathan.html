@@ -40,6 +40,16 @@
                         <button onclick=test(2)>Example 1</button>
                         <button onclick=test(3)>Example 2</button>
                     </div>
+                    <div id="remove_attribute">
+                        <select id='remove_attribute_form'>
+                        </select>
+                        <button onclick=removeAttributes()>Remove attribute</button>
+                    </div>
+                    <div id="remove_dependencies">
+                        <select id='remove_dependency_form'>
+                        </select>
+                        <button onclick=removeDependencies()>Remove dependency</button>
+                    </div>
                 </div>
                 <div id="stop_button">
                     <button onclick=stopExplorationMode()>Stop Exploration Mode</button>
@@ -98,6 +108,11 @@ function addAttribute() {
         attributesToAdd[i] = attributesToAdd[i].trim();
         mB.addAttribute(attributesToAdd[i]);
     }
+}
+
+function removeAttributes() {
+    attributesToRemove = $("#remove_attribute_form").val();
+    mB.deleteAttribute(attributesToRemove);
 }
 
 function addFD() {

@@ -25,7 +25,30 @@ function MainButton() {
     }
 
     this.deleteAttribute = function(attribute) {
-        //TODO
+        for (var i = 0; i < relation.variables.length; ++i) {
+            if (relation.variables[i] == attribute) {
+                console.log("djakjsda");
+                relation.variables.splice(i,1);
+                break;
+            }
+        }
+        for (var i = 0; i < relation.dependencies.length; ++i) {
+            if (Utility.isSubset([attribute],relation.dependencies[i].left) || Utility.isSubset([attribute],relation.dependencies[i].right)) {
+                relation.dependencies.splice(i,1);
+                --i;
+            }
+        }
+        canvasDraw.draw(relation);
+    }
+
+    this.deleteDependencies = function(dependency) {
+        for (var i = 0; i < relation.dependencies.length; ++i) {
+            if (relation.dependencies[i].left == dependency.left && relation.dependencies[i].right == dependency.right) {
+                relation.dependencies.splice(i,1);
+                break;
+            }
+        }
+        canvasDraw.draw(relation);
     }
 
     this.bernsteinAlgorithm = function() {
