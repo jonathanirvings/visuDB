@@ -28,6 +28,33 @@ function MainButton() {
         canvasDraw.draw(relation);
     }
 
+    this.deleteAttribute = function(attribute) {
+        for (var i = 0; i < relation.variables.length; ++i) {
+            if (relation.variables[i] == attribute) {
+                console.log("djakjsda");
+                relation.variables.splice(i,1);
+                break;
+            }
+        }
+        for (var i = 0; i < relation.dependencies.length; ++i) {
+            if (Utility.isSubset([attribute],relation.dependencies[i].left) || Utility.isSubset([attribute],relation.dependencies[i].right)) {
+                relation.dependencies.splice(i,1);
+                --i;
+            }
+        }
+        canvasDraw.draw(relation);
+    }
+
+    this.deleteDependencies = function(dependency) {
+        for (var i = 0; i < relation.dependencies.length; ++i) {
+            if (relation.dependencies[i].left == dependency.left && relation.dependencies[i].right == dependency.right) {
+                relation.dependencies.splice(i,1);
+                break;
+            }
+        }
+        canvasDraw.draw(relation);
+    }
+
     this.bernsteinAlgorithm = function() {
         ba = new BernsteinAlgorithm(relation);
         ba.beginAlgorithm();
@@ -122,7 +149,45 @@ function MainButton() {
             ]
         }
     }
+    this.sample4 = function() {
+        relation =
+        {
+            variables : ["A","B","C","D","E"],
+            dependencies :
+            [
+                {
+                    left : ["A","B"],
+                    right : ["C","D","F"]
+                },
+                {
+                    left : ["A"],
+                    right : ["C"]
+                },
+                {
+                    left : ["D"],
+                    right : ["E"]
+                }
+            ]
+        }
+    }
 
+    this.sample5 = function() {
+        relation =
+        {
+            variables : ["A","B","D","E"],
+            dependencies :
+            [
+                {
+                    left : ["A","B"],
+                    right : ["D","E"]
+                },
+                {
+                    left : ["D"],
+                    right : ["E"]
+                }
+            ]
+        }
+    }
     this.test = function(sampleID) {
         if (sampleID == 1) {
             this.sample1();
@@ -130,8 +195,23 @@ function MainButton() {
             this.sample2();
         } else if (sampleID == 3) {
             this.sample3();
+        } else if (sampleID == 4) {
+            this.sample4();
+        } else if (sampleID == 5) {
+            this.sample5();
         }
         canvasDraw.draw(relation);
+    }
+
+    this.NFTesterMB = function(testerID) {
+        nf = new NFTester(relation);
+        stateList = [];
+        if (testerID == 2) {
+            nf.TwoNFTest(stateList);
+        } else if (testerID == 3) {
+            nf.ThreeNFTest(stateList);
+        }
+        animationWidget.startAnimation(stateList);
     }
 }
 

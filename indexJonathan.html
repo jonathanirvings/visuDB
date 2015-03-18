@@ -36,9 +36,21 @@
                     </div>
                     <div id="sampels">
                         Load samples :
-                        <button onclick=test(1)>Sample 1</button>
-                        <button onclick=test(2)>Example 1</button>
-                        <button onclick=test(3)>Example 2</button>
+                        <button onclick=test(1)>Example 1</button>
+                        <button onclick=test(2)>Example 2</button>
+                        <button onclick=test(3)>Example 3</button>
+                        <button onclick=test(4)>Example 4</button>
+                        <button onclick=test(5)>Example 5</button>
+                    </div>
+                    <div id="remove_attribute">
+                        <select id='remove_attribute_form'>
+                        </select>
+                        <button onclick=removeAttributes()>Remove attribute</button>
+                    </div>
+                    <div id="remove_dependencies">
+                        <select id='remove_dependency_form'>
+                        </select>
+                        <button onclick=removeDependencies()>Remove dependency</button>
                     </div>
                 </div>
                 <div id="stop_button">
@@ -47,7 +59,10 @@
                 <div id="operation_buttons">
                     <input id="closure_form"></input>
                     <button onclick=findClosure()>Find the closure</button>
+                    <br/>
                     <button onclick=bernsteinAlgorithm()>Bernstein Algorithm</button>
+                    <button onclick=NFTesterMB(2)>2NF Tester</button>
+                    <button onclick=NFTesterMB(3)>3NF Tester</button>
                 </div>
             </div>
         </div>
@@ -101,6 +116,11 @@ function addAttribute() {
     }
 }
 
+function removeAttributes() {
+    attributesToRemove = $("#remove_attribute_form").val();
+    mB.deleteAttribute(attributesToRemove);
+}
+
 function addFD() {
     FDToAddLeft = $("#fd_left_form").val();
     FDToAddRight = $("#fd_right_form").val();
@@ -149,6 +169,11 @@ function bernsteinAlgorithm() {
 
 function test(sampleID) {
     mB.test(sampleID);
+}
+
+function NFTesterMB(testerID) {
+    startExplorationMode();
+    mB.NFTesterMB(testerID);
 }
 
 function stopExplorationMode() {
