@@ -6,10 +6,6 @@ canvasDraw.clearCanvas = function() {
     $("#annotation_text").html("");
 }
 
-canvasDraw.clearButtons = function() {
-    $("#clickable_buttons").html("");
-}
-
 canvasDraw.draw = function(drawState) {
     console.log(drawState);
     this.clearCanvas();
