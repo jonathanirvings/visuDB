@@ -29,34 +29,10 @@ function MainButton() {
         ba.beginAlgorithm();
     }
 
-    this.test = function() {
+    this.sample1 = function() {
         relation =
         {
             variables : ["a","b","c","d"],
-            dependencies :
-            [
-                {
-                    left : ["a","b"],
-                    right : ["c"]
-                },
-                {
-                    left : ["a"],
-                    right : ["b"]
-                },
-                {
-                    left : ["a"],
-                    right : ["c"]
-                },
-                {
-                    left : ["b"],
-                    right : ["a"]
-                }
-            ]
-        }
-
-        relation =
-        {
-            variables : ["a","b","c","d","youngsing"],
             dependencies :
             [
                 {
@@ -76,6 +52,48 @@ function MainButton() {
                     right : ["c"]
                 }
             ]
+        }
+    }
+
+    this.sample2 = function() {
+        relation =
+        {
+            variables : ["A","B","C","D","E","F"],
+            dependencies :
+            [
+                {
+                    left : ["A"],
+                    right : ["B"]
+                },
+                {
+                    left : ["A"],
+                    right : ["C"]
+                },
+                {
+                    left : ["B"],
+                    right : ["C"]
+                },
+                {
+                    left : ["B"],
+                    right : ["D"]
+                },
+                {
+                    left : ["D"],
+                    right : ["B"]
+                },
+                {
+                    left : ["A","B","E"],
+                    right : ["F"]
+                }
+            ]
+        }
+    }
+
+    this.test = function(sampleID) {
+        if (sampleID == 1) {
+            this.sample1();
+        } else if (sampleID == 2) {
+            this.sample2();
         }
         canvasDraw.draw(relation);
     }
