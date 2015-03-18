@@ -90,7 +90,7 @@ var MinimalCover = function() {
     function populateDependencies(relation, currentIdx, filter) {
     	var temp = new Array();
     	for (var i = 0; i < relation.dependencies.length; i++) {
-    		if (i != currentIdx && filter.indexOf(i) > -1) {
+    		if (i != currentIdx || filter.indexOf(i) > -1) {
     			temp.push(relation.dependencies[i]);
     		}
     	}

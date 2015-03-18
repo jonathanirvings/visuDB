@@ -9,7 +9,16 @@ animationWidget.startAnimation = function(stateList) {
         if ('message' in stateList[i]) {
             message = stateList[i].message;
         }
+        stateList[i].annotation = message + "<br>" + stateList[i].annotation;
         $("#clickable_buttons").append("<li onclick='canvasDraw.draw(" + JSON.stringify(stateList[i]) + ")'> " 
                                        + message + "</li>");
     }
+    canvasDraw.draw(stateList[0]);
+    return;
+    console.log(stateList);
+    var frameIndex = 0;
+    setInterval(function(){
+        canvasDraw.draw(stateList[frameIndex]);
+        ++frameIndex;
+    }, 2000);
 }

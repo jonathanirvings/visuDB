@@ -136,6 +136,8 @@ function test(sampleID) {
 function stopExplorationMode() {
     $("#stop_button").hide();
     $("#input_box_edit").show();
+    canvasDraw.clearCanvas();
+    canvasDraw.clearButtons();
 }
 
 function startExplorationMode() {
