@@ -19,7 +19,7 @@ Utility.isSubset = function(left, right) {
 
 //return true iff left is the proper subset of right
 Utility.isProperSubset = function(left, right) {
-    if (left.length == right.length || !isSubset(left,right)) {
+    if (left.length == right.length || !Utility.isSubset(left,right)) {
         return false;
     }
     return true;

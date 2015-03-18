@@ -49,7 +49,10 @@
                 <div id="operation_buttons">
                     <input id="closure_form"></input>
                     <button onclick=findClosure()>Find the closure</button>
+                    <br/>
                     <button onclick=bernsteinAlgorithm()>Bernstein Algorithm</button>
+                    <button onclick=NFTesterMB(2)>2NF Tester</button>
+                    <button onclick=NFTesterMB(3)>3NF Tester</button>
                 </div>
             </div>
         </div>
@@ -133,6 +136,11 @@ function bernsteinAlgorithm() {
 
 function test(sampleID) {
     mB.test(sampleID);
+}
+
+function NFTesterMB(testerID) {
+    startExplorationMode();
+    mB.NFTesterMB(testerID);
 }
 
 function stopExplorationMode() {

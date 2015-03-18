@@ -56,7 +56,6 @@ var NFTester = function(_relation) {
     //A is a prime attribute
     this.TwoNFTest = function(stateList) {
 
-        var stateList = [];
         var currentState = new Object();
         currentState["variables"] = relation["variables"];
         currentState["dependencies"] = relation["dependencies"];

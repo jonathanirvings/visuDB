@@ -24,6 +24,10 @@ function MainButton() {
         canvasDraw.draw(relation);
     }
 
+    this.deleteAttribute = function(attribute) {
+        //TODO
+    }
+
     this.bernsteinAlgorithm = function() {
         ba = new BernsteinAlgorithm(relation);
         ba.beginAlgorithm();
@@ -170,6 +174,17 @@ function MainButton() {
             this.sample5();
         }
         canvasDraw.draw(relation);
+    }
+
+    this.NFTesterMB = function(testerID) {
+        nf = new NFTester(relation);
+        stateList = [];
+        if (testerID == 2) {
+            nf.TwoNFTest(stateList);
+        } else if (testerID == 3) {
+            nf.ThreeNFTest(stateList);
+        }
+        animationWidget.startAnimation(stateList);
     }
 }
 
