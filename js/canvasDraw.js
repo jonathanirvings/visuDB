@@ -4,7 +4,12 @@ canvasDraw.clearCanvas = function() {
     $("#main_canvas #variables").html("");
     $("#main_canvas #dependencies").html("");
     $("#remove_attribute_form").html("");
+    $("#remove_dependency_form").html("");
     $("#annotation_text").html("");
+}
+
+canvasDraw.clearButtons = function() {
+    $("#clickable_buttons").html("");
 }
 
 canvasDraw.draw = function(drawState) {
@@ -34,5 +39,8 @@ canvasDraw.draw = function(drawState) {
         } else {
             $("#main_canvas #dependencies").append("<li>" + FD + "</li>");
         }
+
+        $("#remove_dependency_form").append("<option value='" + drawState.dependencies[i].left + ";" + drawState.dependencies[i].right + 
+            "'>" + FD + "</option>");
     }
 }

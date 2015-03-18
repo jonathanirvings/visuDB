@@ -117,6 +117,13 @@ function removeAttributes() {
     mB.deleteAttribute(attributesToRemove);
 }
 
+function removeDependencies() {
+    dependencyToRemove = ($("#remove_dependency_form").val()).split(';');
+    var leftDependency = dependencyToRemove[0].split(',');
+    var rightDependency = dependencyToRemove[1].split(',');
+    mB.deleteDependency(leftDependency,rightDependency);
+}
+
 function addFD() {
     FDToAddLeft = $("#fd_left_form").val();
     FDToAddRight = $("#fd_right_form").val();

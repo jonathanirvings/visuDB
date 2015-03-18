@@ -41,9 +41,9 @@ function MainButton() {
         canvasDraw.draw(relation);
     }
 
-    this.deleteDependencies = function(dependency) {
+    this.deleteDependency = function(dependencyLeft, dependencyRight) {
         for (var i = 0; i < relation.dependencies.length; ++i) {
-            if (relation.dependencies[i].left == dependency.left && relation.dependencies[i].right == dependency.right) {
+            if (Utility.isEqual(relation.dependencies[i].left,dependencyLeft) && Utility.isEqual(relation.dependencies[i].right,dependencyRight)) {
                 relation.dependencies.splice(i,1);
                 break;
             }

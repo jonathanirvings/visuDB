@@ -12,4 +12,5 @@ animationWidget.startAnimation = function(stateList) {
         $("#clickable_buttons").append("<li onclick='canvasDraw.draw(" + JSON.stringify(stateList[i]) + ")'> " 
                                        + message + "</li>");
     }
+    canvasDraw.draw(stateList[0]);
 }
