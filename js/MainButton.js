@@ -89,11 +89,43 @@ function MainButton() {
         }
     }
 
+    this.sample3 = function() {
+        relation =
+        {
+            variables : ["A","B","C","D","X1","X2"],
+            dependencies :
+            [
+                {
+                    left : ["X1","X2"],
+                    right : ["A","D"]
+                },
+                {
+                    left : ["C","D"],
+                    right : ["X1","X2"]
+                },
+                {
+                    left : ["A","X1"],
+                    right : ["B"]
+                },
+                {
+                    left : ["B","X2"],
+                    right : ["C"]
+                },
+                {
+                    left : ["C"],
+                    right : ["A"]
+                }
+            ]
+        }
+    }
+
     this.test = function(sampleID) {
         if (sampleID == 1) {
             this.sample1();
         } else if (sampleID == 2) {
             this.sample2();
+        } else if (sampleID == 3) {
+            this.sample3();
         }
         canvasDraw.draw(relation);
     }
