@@ -145,7 +145,45 @@ function MainButton() {
             ]
         }
     }
+    this.sample4 = function() {
+        relation =
+        {
+            variables : ["A","B","C","D","E"],
+            dependencies :
+            [
+                {
+                    left : ["A","B"],
+                    right : ["C","D","F"]
+                },
+                {
+                    left : ["A"],
+                    right : ["C"]
+                },
+                {
+                    left : ["D"],
+                    right : ["E"]
+                }
+            ]
+        }
+    }
 
+    this.sample5 = function() {
+        relation =
+        {
+            variables : ["A","B","D","E"],
+            dependencies :
+            [
+                {
+                    left : ["A","B"],
+                    right : ["D","E"]
+                },
+                {
+                    left : ["D"],
+                    right : ["E"]
+                }
+            ]
+        }
+    }
     this.test = function(sampleID) {
         if (sampleID == 1) {
             this.sample1();
@@ -153,6 +191,10 @@ function MainButton() {
             this.sample2();
         } else if (sampleID == 3) {
             this.sample3();
+        } else if (sampleID == 4) {
+            this.sample4();
+        } else if (sampleID == 5) {
+            this.sample5();
         }
         canvasDraw.draw(relation);
     }

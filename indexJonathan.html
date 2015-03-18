@@ -36,9 +36,11 @@
                     </div>
                     <div id="sampels">
                         Load samples :
-                        <button onclick=test(1)>Sample 1</button>
-                        <button onclick=test(2)>Example 1</button>
-                        <button onclick=test(3)>Example 2</button>
+                        <button onclick=test(1)>Example 1</button>
+                        <button onclick=test(2)>Example 2</button>
+                        <button onclick=test(3)>Example 3</button>
+                        <button onclick=test(4)>Example 4</button>
+                        <button onclick=test(5)>Example 5</button>
                     </div>
                     <div id="remove_attribute">
                         <select id='remove_attribute_form'>
@@ -159,6 +161,8 @@ function NFTesterMB(testerID) {
 function stopExplorationMode() {
     $("#stop_button").hide();
     $("#input_box_edit").show();
+    canvasDraw.clearCanvas();
+    canvasDraw.clearButtons();
 }
 
 function startExplorationMode() {
