@@ -8,14 +8,18 @@ function MainButton() {
     }
 
     this.addAttribute = function(attribute) {
-        relation.variables.push(attribute);
-        canvasDraw.draw(relation);
+        if(relation.variables.length < 10){
+            relation.variables.push(attribute);
+            canvasDraw.draw(relation);
+        }
     }
 
     this.addFD = function(_left, _right) {
         newFD = {left : _left, right : _right}
-        relation.dependencies.push(newFD);
-        canvasDraw.draw(relation);
+        if(relation.dependencies.length < 10){
+            relation.dependencies.push(newFD);
+            canvasDraw.draw(relation);
+        }
     }
 
     this.findClosure = function(attributes) {

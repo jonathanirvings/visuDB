@@ -92,8 +92,12 @@ function addAttribute() {
     $("#attribute_form").val("");
     attributesToAdd = attributesToAdd.split(',');
     for (var i = 0; i < attributesToAdd.length; ++i) {
+
         attributesToAdd[i] = attributesToAdd[i].trim();
-        mB.addAttribute(attributesToAdd[i]);
+        if(attributesToAdd[i] != ""){
+            mB.addAttribute(attributesToAdd[i]);
+
+        }
     }
 }
 
@@ -102,15 +106,29 @@ function addFD() {
     FDToAddRight = $("#fd_right_form").val();
     $("#fd_left_form").val("");
     $("#fd_right_form").val("");
+    var leftcount = 0;
+    var rightcount = 0;
     FDToAddLeft = FDToAddLeft.split(',');
     FDToAddRight = FDToAddRight.split(',');
+    var Left = Array();
+    var Right = Array();
+
     for (var i = 0; i < FDToAddLeft.length; ++i) {
-        FDToAddLeft[i] = FDToAddLeft[i].trim();
+        if(FDToAddLeft[i] != "" ){
+            Left[leftcount] = FDToAddLeft[i].trim();
+            leftcount++;
+        }
     }
     for (var i = 0; i < FDToAddRight.length; ++i) {
-        FDToAddRight[i] = FDToAddRight[i].trim();
+        if(FDToAddRight[i] != "" ){
+            Right[rightcount] = FDToAddRight[i].trim();
+            rightcount++;
+        }
     }
-    mB.addFD(FDToAddLeft,FDToAddRight);
+    if(Right.length != 0 && Left.length != 0 ){
+        mB.addFD(Left,Right);
+    }
+    
 }
 
 function findClosure() {
