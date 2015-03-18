@@ -42,7 +42,7 @@ var MinimalCover = function() {
                 tempRelation["dependencies"][i].left.splice(j, 1);
 
                 //Check if same closure
-                var tempClosure = new ClosureFinder(tempRelation);
+                var tempClosure = new ClosureFinder(masterRelation);
                 var tempLeftAttrClosure = tempClosure.getClosure(tempRelation["dependencies"][i].left);
                 if(Utility.isSubset(masterRelation["dependencies"][i].right, tempLeftAttrClosure) ||
                     Utility.isSubset(jAttr, tempLeftAttrClosure)) {
