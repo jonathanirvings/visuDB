@@ -11,6 +11,8 @@ function MainButton() {
         if(relation.variables.length < 10){
             relation.variables.push(attribute);
             canvasDraw.draw(relation);
+        } else {
+            alert('You can have only up to 10 variables');
         }
     }
 
@@ -19,6 +21,8 @@ function MainButton() {
         if(relation.dependencies.length < 10){
             relation.dependencies.push(newFD);
             canvasDraw.draw(relation);
+        } else {
+            alert('You can have only up to 10 functional dependencies');
         }
     }
 
@@ -31,7 +35,6 @@ function MainButton() {
     this.deleteAttribute = function(attribute) {
         for (var i = 0; i < relation.variables.length; ++i) {
             if (relation.variables[i] == attribute) {
-                console.log("djakjsda");
                 relation.variables.splice(i,1);
                 break;
             }

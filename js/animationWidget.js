@@ -9,6 +9,7 @@ animationWidget.startAnimation = function(stateList) {
         if ('message' in stateList[i]) {
             message = message + " - " + stateList[i].message;
         }
+        stateList[i].annotation = message + "<br/>" + stateList[i].annotation;
         $("#clickable_buttons").append("<li onclick='canvasDraw.draw(" + JSON.stringify(stateList[i]) + ")'> " 
                                        + message + "</li>");
     }

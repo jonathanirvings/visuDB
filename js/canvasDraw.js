@@ -16,11 +16,12 @@ canvasDraw.draw = function(drawState) {
     console.log(drawState);
     this.clearCanvas();
 
-    $("#main_canvas #variables").html(drawState.variables.toString());
+    //$("#main_canvas #variables").html(drawState.variables.toString());
     $("#annotation_text").html(drawState.annotation);
 
     for (var i = 0; i < drawState.variables.length; ++i) {
         $("#remove_attribute_form").append("<option value='" + drawState.variables[i] + "'>" + drawState.variables[i] + "</option>");
+        $("#main_canvas #variables").append("<li>" + drawState.variables[i] + "</li>");
     }
 
     for (var i = 0; i < drawState.dependencies.length; ++i) {

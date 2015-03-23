@@ -38,13 +38,15 @@ var BernsteinAlgorithm = function(_relation) {
 
     var partition = function() {
         var H = new Array();
+        //var newArray = new Array();
+        //H.push(newArray);
         for (var i = 0; i < relation.dependencies.length; ++i) {
             var newFD = new Object();
             newFD.left = relation.dependencies[i].left.slice();
             newFD.right = relation.dependencies[i].right.slice();
             var isExist = false;
             for (var j = 0; j < H.length; ++j) {
-                if (Utility.isEqual(H[j][0].left,newFD.left))
+                if (H[j].length > 0 && Utility.isEqual(H[j][0].left,newFD.left))
                 {
                     H[j].push(newFD);
                     isExist = true;
@@ -67,7 +69,20 @@ var BernsteinAlgorithm = function(_relation) {
                 for (var j = i + 1; j < H.length; ++j) {
                     for (var k = 0; k < H[i].length; ++k) {
                         for (var l = 0; l < H[j].length; ++l) {
-                            if (!isChanged && Utility.isEqual(H[i][k].left,H[j][l].right) && Utility.isEqual(H[i][k].right,H[j][l].left)) {
+                            if (!isChanged) {//&& Utility.isEqual(H[i][k].left,H[j][l].right) && Utility.isEqual(H[i][k].right,H[j][l].left)) {
+
+                                var cl = new ClosureFinder(relation);
+                                console.log(H[i][k].left,H[j][l].left);
+                                console.log(cl.getClosure(H[j][l].left));
+                                console.log(cl.getClosure(H[i][k].left));
+
+                                var L = H[i][k].left;
+                                var R = H[j][l].left;
+
+                                if (!Utility.isSubset(H[i][k].left,cl.getClosure(H[j][l].left)) || !Utility.isSubset(H[j][l].left,cl.getClosure(H[i][k].left))) {
+                                    continue;
+                                }
+                                console.log(H);
 
                                 currentState = new Object();
                                 currentState["variables"] = relation["variables"];
@@ -75,11 +90,29 @@ var BernsteinAlgorithm = function(_relation) {
                                 currentState["annotation"] = "[" + H[i][k].left + "] and [" + H[i][k].right + "] are equivalent keys";
                                 currentState.highlightedDependencies = [];
 
-                                H[i].push(H[j][l]);
-                                H[j].splice(l,1);
-                                if (H[j].length == 0) {
-                                    H.splice(j,1);
+                                //H[i].push(H[j][l]);
+                                //H[0].push({left:L, right:R});
+                                //H[0].push({left:R, right:L});
+                                //console.log(H);
+                                for (var m = 0; m < H[j].length; ++m) {
+                                    if (Utility.isSubset(H[j][m].right,L)) {
+                                        H[j].splice(m,1);
+                                        --m;
+                                    }  
                                 }
+                                for (var m = 0; m < H[i].length; ++m) {
+                                    if (Utility.isSubset(H[i][m].right,R)) {
+                                        H[i].splice(m,1);
+                                        --m;
+                                    }  
+                                }
+                                for (var m = 0; m < H[j].length; ++m) {
+                                    H[i].push(H[j][m]);
+                                }
+                                for (var m = 0; m < R.length; ++m) {
+                                    H[i].push({left:L, right:[R[m]]})
+                                }
+                                H.splice(j,1);
                                 isChanged = true;
 
                                 for (var m = 0; m < H.length; ++m) {
@@ -130,6 +163,22 @@ var BernsteinAlgorithm = function(_relation) {
         return [-1,-1]; //not exist in H
     }
 
+    var constructRelationFromH = function(H,ix1,ix2) {
+        fd = [];
+        for (var i = 0; i < H.length; ++i) {
+            for (var j = 0; j < H[i].length; ++j) {
+                if (i != ix1 || j != ix2) 
+                    fd.push(H[i][j]);
+            }
+        }
+        variables = relation.variables;
+        var ob = new Object();
+        ob.variables = variables;
+        ob.dependencies = fd;
+        //console.log(ob);
+        return ob;
+    }
+
     var removeTransitiveDependencies = function(H) {
         while (true) {
             var isChanged = false;
@@ -137,21 +186,31 @@ var BernsteinAlgorithm = function(_relation) {
                 for (var j = 0; j < H.length; ++j) {
                     for (var k = 0; k < H[i].length; ++k) {
                         for (var l = 0; l < H[j].length; ++l) {
-                            if (Utility.isEqual(H[i][k].right,H[j][l].left)) {
-                                var position = indexInH(H,H[i][k].left,H[j][l].right);
+                            if ((i != j || k != l) && Utility.isEqual(H[i][k].left,H[j][l].left)) {
+                                console.log(i,k,j,l);
+                                var position = [j,l];
+                                var cl = new ClosureFinder(constructRelationFromH(H,j,l));
+                                if (!Utility.isSubset(H[j][l].right,cl.getClosure(H[i][k].right))) {
+                                    position = [-1,-1];
+                                }
+
                                 if (position[0] >= 0) {
 
                                     console.log(position);
+                                    var L = H[j][l].left;
+                                    var R = H[j][l].right;
                                     H[position[0]].splice(position[1],1);
                                     isChanged = true;
 
                                     currentState = new Object();
                                     currentState["variables"] = relation["variables"];
                                     currentState["dependencies"] = relation["dependencies"];
-                                    currentState["annotation"] = "Removing transitive dependency [" + H[i][k].left + "]->[" + H[j][l].right + "]";
+                                    currentState["annotation"] = "Removing transitive dependency [" + L + "]->[" + R + "]";
                                     currentState.highlightedDependencies = [];
                                     printHToAnnotation(H, currentState);
                                     stateList.push(currentState);                                    
+                                
+                                    
                                 }
                             }
                             if (isChanged) break;
@@ -291,5 +350,3 @@ var BernsteinAlgorithm = function(_relation) {
 
     }
 }
-
-
