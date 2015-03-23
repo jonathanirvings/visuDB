@@ -155,7 +155,7 @@ function MainButton() {
     this.sample4 = function() {
         relation =
         {
-            variables : ["A","B","C","D","E"],
+            variables : ["A","B","C","D","E","F"],
             dependencies :
             [
                 {
@@ -191,6 +191,25 @@ function MainButton() {
             ]
         }
     }
+
+    this.sample6 = function() {
+        relation =
+        {
+            variables : ["A","B","C","D","E"],
+            dependencies :
+            [
+                {
+                    left : ["A","B"],
+                    right : ["D","E"]
+                },
+                {
+                    left : ["D"],
+                    right : ["E"]
+                }
+            ]
+        }
+    }
+
     this.test = function(sampleID) {
         if (sampleID == 1) {
             this.sample1();
@@ -202,6 +221,8 @@ function MainButton() {
             this.sample4();
         } else if (sampleID == 5) {
             this.sample5();
+        } else if (sampleID == 6) {
+            this.sample6();
         }
         canvasDraw.draw(relation);
     }

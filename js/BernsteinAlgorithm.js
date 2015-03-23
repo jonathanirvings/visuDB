@@ -79,7 +79,7 @@ var BernsteinAlgorithm = function(_relation) {
                                 var L = H[i][k].left;
                                 var R = H[j][l].left;
 
-                                if (!Utility.isSubset(H[i][k].left,cl.getClosure(H[j][l].left)) || !Utility.isSubset(H[j][l].left,cl.getClosure(H[i][k].left))) {
+                                if (!Utility.isSubset(L,cl.getClosure(R)) || !Utility.isSubset(R,cl.getClosure(L))) {
                                     continue;
                                 }
                                 console.log(H);
@@ -87,19 +87,13 @@ var BernsteinAlgorithm = function(_relation) {
                                 currentState = new Object();
                                 currentState["variables"] = relation["variables"];
                                 currentState["dependencies"] = relation["dependencies"];
-                                currentState["annotation"] = "[" + H[i][k].left + "] and [" + H[i][k].right + "] are equivalent keys";
+                                currentState["annotation"] = "[" + L + "] and [" + R + "] are equivalent keys";
                                 currentState.highlightedDependencies = [];
 
                                 //H[i].push(H[j][l]);
                                 //H[0].push({left:L, right:R});
                                 //H[0].push({left:R, right:L});
                                 //console.log(H);
-                                for (var m = 0; m < H[j].length; ++m) {
-                                    if (Utility.isSubset(H[j][m].right,L)) {
-                                        H[j].splice(m,1);
-                                        --m;
-                                    }  
-                                }
                                 for (var m = 0; m < H[i].length; ++m) {
                                     if (Utility.isSubset(H[i][m].right,R)) {
                                         H[i].splice(m,1);
@@ -108,6 +102,12 @@ var BernsteinAlgorithm = function(_relation) {
                                 }
                                 for (var m = 0; m < H[j].length; ++m) {
                                     H[i].push(H[j][m]);
+                                }
+                                for (var m = 0; m < H[j].length; ++m) {
+                                    if (Utility.isSubset(H[j][m].right,L)) {
+                                        H[j].splice(m,1);
+                                        --m;
+                                    }  
                                 }
                                 for (var m = 0; m < R.length; ++m) {
                                     H[i].push({left:L, right:[R[m]]})
@@ -313,6 +313,13 @@ var BernsteinAlgorithm = function(_relation) {
             stateList.push(currentState);
         }
 
+        currentState = new Object();
+        currentState["variables"] = relation["variables"];
+        currentState["dependencies"] = relation["dependencies"];
+        currentState["annotation"] = "Finding minimal cover";
+        currentState["message"] = "Finding minimal cover";
+        stateList.push(currentState);
+
         findMinimalCover();
 
         var H = partition();
@@ -320,6 +327,7 @@ var BernsteinAlgorithm = function(_relation) {
         currentState["variables"] = relation["variables"];
         currentState["dependencies"] = relation["dependencies"];
         currentState["annotation"] = "Partitioning into H based on left side FD";
+        currentState["message"] = "Partitioning into H based on left side FD";
         printHToAnnotation(H, currentState);
         stateList.push(currentState);
 
@@ -327,6 +335,7 @@ var BernsteinAlgorithm = function(_relation) {
         currentState["variables"] = relation["variables"];
         currentState["dependencies"] = relation["dependencies"];
         currentState["annotation"] = "Merging equivalent key";
+        currentState["message"] = "Merging equivalent key";
         printHToAnnotation(H, currentState);
         stateList.push(currentState);
         H = mergeEquivalentKeys(H);
@@ -335,6 +344,7 @@ var BernsteinAlgorithm = function(_relation) {
         currentState["variables"] = relation["variables"];
         currentState["dependencies"] = relation["dependencies"];
         currentState["annotation"] = "Remove transitive dependencies";
+        currentState["message"] = "Remove transitive dependencies";
         printHToAnnotation(H, currentState);
         stateList.push(currentState);
         H = removeTransitiveDependencies(H);

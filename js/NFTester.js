@@ -70,6 +70,7 @@ var NFTester = function(_relation) {
             currentState["annotation"] += "]";
         }
         currentState["annotation"] += "]";
+        currentState["message"] = "2NF check";
         stateList.push(currentState);
 
         var twoNF = true;
@@ -78,6 +79,8 @@ var NFTester = function(_relation) {
             currentState["variables"] = relation["variables"];
             currentState["dependencies"] = relation["dependencies"];
             currentState["annotation"] = "Checking FD " + currentState.dependencies[i].left + " -> "
+                                         + currentState.dependencies[i].right;
+            currentState["message"] = "Checking FD " + currentState.dependencies[i].left + " -> "
                                          + currentState.dependencies[i].right;
             currentState.highlightedDependencies = [i];
             stateList.push(currentState);
@@ -182,6 +185,7 @@ var NFTester = function(_relation) {
             currentState["annotation"] += "]";
         }
         currentState["annotation"] += "]";
+        currentState["message"] = "3NF Check";
         stateList.push(currentState);
 
         var threeNF = true;
@@ -190,6 +194,8 @@ var NFTester = function(_relation) {
             currentState["variables"] = relation["variables"];
             currentState["dependencies"] = relation["dependencies"];
             currentState["annotation"] = "Checking FD " + currentState.dependencies[i].left + " -> "
+                                         + currentState.dependencies[i].right;
+            currentState["message"] = "Checking FD " + currentState.dependencies[i].left + " -> "
                                          + currentState.dependencies[i].right;
             currentState.highlightedDependencies = [i];
             stateList.push(currentState);
