@@ -274,21 +274,111 @@ var NFTester = function(_relation) {
             currentState = new Object();
             currentState["variables"] = relation["variables"];
             currentState["dependencies"] = relation["dependencies"];
-            currentState["annotation"] = "All FDs satifies 2NF. The relation satifies 2NF.";
+            currentState["annotation"] = "All FDs satifies 3NF. The relation satifies 3NF.";
             stateList.push(currentState);
         }
 
         return threeNF;
     }
 
-    this.EKNFTest = function(relation) {
-        //TODO
+    /*this.EKNFTest = function(relation) {
+        //NOT IMPLEMENTED
         return true;
-    }
+    }*/
 
-    this.BCNFTest = function(relation) {
-        //TODO
-        return true;
+    this.BCNFTest = function(stateList) {
+        var currentState = new Object();
+        currentState["variables"] = relation["variables"];
+        currentState["dependencies"] = relation["dependencies"];
+        currentState["annotation"] = "Key = [";// + listOfKeys;
+        for (var i = 0; i < listOfKeys.length; ++i) {
+            if (i > 0) currentState["annotation"] += ",";
+            currentState["annotation"] += "[";
+            for (var j = 0; j < listOfKeys[i].length; ++j) {
+                if (j > 0) currentState["annotation"] += ",";
+                currentState["annotation"] += listOfKeys[i][j];
+            }
+            currentState["annotation"] += "]";
+        }
+        currentState["annotation"] += "]";
+        currentState["message"] = "BCNF Check";
+        stateList.push(currentState);
+
+        var BCNF = true;
+        for (var i = 0; i < relation.dependencies.length; ++i) {
+            currentState = new Object();
+            currentState["variables"] = relation["variables"];
+            currentState["dependencies"] = relation["dependencies"];
+            currentState["annotation"] = "Checking FD " + currentState.dependencies[i].left + " -> "
+                                         + currentState.dependencies[i].right;
+            currentState["message"] = "Checking FD " + currentState.dependencies[i].left + " -> "
+                                         + currentState.dependencies[i].right;
+            currentState.highlightedDependencies = [i];
+            stateList.push(currentState);
+
+            var leftRelation = relation.dependencies[i].left;
+            var rightRelation = relation.dependencies[i].right;
+            var OK = false;
+
+            if (!OK && Utility.isSubset(rightRelation,leftRelation)) {
+                currentState = new Object();
+                currentState["variables"] = relation["variables"];
+                currentState["dependencies"] = relation["dependencies"];
+                currentState["annotation"] = "Right hand is a subset of left hand. This is a trivial FD. FD satifies BCNF";
+                currentState.highlightedDependencies = [i];
+                stateList.push(currentState);
+
+                OK = true;
+            } else if (!OK) {
+                currentState = new Object();
+                currentState["variables"] = relation["variables"];
+                currentState["dependencies"] = relation["dependencies"];
+                currentState["annotation"] = "Right hand is NOT a subset of left hand. This is not a trivial FD";
+                currentState.highlightedDependencies = [i];
+                stateList.push(currentState);
+            }
+
+
+            if (!OK && isSuperKey(leftRelation)) {
+                currentState = new Object();
+                currentState["variables"] = relation["variables"];
+                currentState["dependencies"] = relation["dependencies"];
+                currentState["annotation"] = "Left hand is a superkey. FD satisfies BCNF";
+                currentState.highlightedDependencies = [i];
+                stateList.push(currentState);
+
+                OK = true;
+            } else if (!OK) {
+                currentState = new Object();
+                currentState["variables"] = relation["variables"];
+                currentState["dependencies"] = relation["dependencies"];
+                currentState["annotation"] = "Left hand is not a superkey";
+                currentState.highlightedDependencies = [i];
+                stateList.push(currentState);
+            }
+            
+            if (!OK) {
+                currentState = new Object();
+                currentState["variables"] = relation["variables"];
+                currentState["dependencies"] = relation["dependencies"];
+                currentState["annotation"] = "This FD violates BCNF. Therefore, this is not in BCNF";
+                currentState.highlightedDependencies = [i];
+                stateList.push(currentState);
+                BCNF = false;
+
+                break;
+            }
+        }
+
+        if (BCNF) {
+            currentState = new Object();
+            currentState["variables"] = relation["variables"];
+            currentState["dependencies"] = relation["dependencies"];
+            currentState["annotation"] = "All FDs satifies BCNF. The relation satifies BCNF.";
+            stateList.push(currentState);
+        }
+
+        return BCNF;
     }
 }
 

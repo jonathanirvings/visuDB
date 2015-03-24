@@ -234,6 +234,8 @@ function MainButton() {
             nf.TwoNFTest(stateList);
         } else if (testerID == 3) {
             nf.ThreeNFTest(stateList);
+        } else if (testerID == 5) {
+            nf.BCNFTest(stateList);
         }
         animationWidget.startAnimation(stateList);
     }

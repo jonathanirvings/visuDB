@@ -13,6 +13,7 @@ var ClosureFinder = function(_relation) {
         currentState["variables"] = relation["variables"];
         currentState["dependencies"] = relation["dependencies"];
         currentState["annotation"] = "Closure is [" + closure + "]";
+        currentState["message"] = "Closure is [" + closure + "]";
         currentState.highlightedDependencies = [];
         stateList.push(currentState);
 
@@ -31,6 +32,7 @@ var ClosureFinder = function(_relation) {
                         currentState["annotation"] += "<br/>Closure is [" + closure + "]";
                         currentState["annotation"] += " union [" + relation.dependencies[i].right + "]";
                         currentState["annotation"] += "<br/>= [" + newClosure + "]";
+                        currentState["message"] = "Closure is [" + newClosure + "]";
                         currentState.highlightedDependencies = [i];
                         stateList.push(currentState);
 
@@ -43,6 +45,12 @@ var ClosureFinder = function(_relation) {
             }
         }
 
+        currentState = new Object();
+        currentState["variables"] = relation["variables"];
+        currentState["dependencies"] = relation["dependencies"];
+        currentState["annotation"] = "No more FD can be used";
+        currentState["message"] = "Closure is [" + closure + "]";
+        stateList.push(currentState);
         animationWidget.startAnimation(stateList);
 
         return closure;
