@@ -40,16 +40,7 @@
     <nav class="collapse navbar-collapse" role="navigation">
       <ul class="nav navbar-nav">
         <li>
-          <a href="#">Category</a>
-        </li>
-        <li>
-          <a href="#">Category</a>
-        </li>
-        <li>
-          <a href="#">Category</a>
-        </li>
-        <li>
-          <a href="#">Category</a>
+          <a href="#">ABOUT</a>
         </li>
       </ul>
       <ul class="nav navbar-right navbar-nav">
@@ -70,7 +61,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-7">
-        <h1>Storystrap
+        <h1>VisualDB
           <p class="lead"></p>
         </h1>
       </div>
@@ -78,8 +69,6 @@
         <div class="well well-lg"> 
           <div class="row">
             <div class="col-sm-12">
-              
-            
             </div>
           </div>
         </div>
@@ -106,96 +95,92 @@
       
           <!--/stories-->
           <div class="row">    
- <div style="width:100%; height:780px; overflow:hidden">
-    <div id="inner-box">
-        <div id="input_box">
-            <div id="input_box_inner">
-                <div id="input_box_edit">
-                    <div id="add_attribute">
-                        <div>Attributes to add :</div>
-                        <input id="attribute_form"></input>
-                        <button onclick=addAttribute()>Add attribute</button>
-                    </div>
-                    <div id="add_fd">
-                        <div>Functional Dependency to add :</div>
-                        <input id="fd_left_form"></input>-><input id="fd_right_form"></input>
-                        <button onclick=addFD()>Add functional dependency</button>
-                    </div>
-                    <div id="sampels">
-                        Load samples :
-                        <button onclick=test(1)>Example 1</button>
-                        <button onclick=test(2)>Example 2</button>
-                        <button onclick=test(3)>Example 3</button>
-                        <button onclick=test(4)>Example 4</button>
-                        <button onclick=test(5)>Example 5</button>
-                        <button onclick=test(6)>Example 6</button>
-                    </div>
-                    <div id="remove_attribute">
-                        <select id='remove_attribute_form'>
-                        </select>
-                        <button onclick=removeAttributes()>Remove attribute</button>
-                    </div>
-                    <div id="remove_dependencies">
-                        <select id='remove_dependency_form'>
-                        </select>
-                        <button onclick=removeDependencies()>Remove dependency</button>
-                    </div>
-                    <button onclick=clearAll()>Clear</button>
-                </div>
-                <div id="stop_button">
-                    <button onclick=stopExplorationMode()>Stop Exploration Mode</button>
-                </div>
-                <div id="operation_buttons">
-                    <input id="closure_form"></input>
-                    <button onclick=findClosure()>Find the closure</button>
-                    <br/>
-                    <button onclick=bernsteinAlgorithm()>Bernstein Algorithm</button>
-                    <button onclick=NFTesterMB(2)>2NF Tester</button>
-                    <button onclick=NFTesterMB(3)>3NF Tester</button>
-                    <button onclick=NFTesterMB(5)>BCNF Tester</button>
-                </div>
-            </div>
-        </div>
-        <div style="height:400px;">
-            <div id="main_canvas">
-                <div class="box variables">
-                    <div id="box_variables_inner">
-                        List of attributes : 
-                        <ul id="variables"></ul>
-                    </div>
-                </div>
-            <div class="box dependencies">
-                <div id="box_dependencies_inner">
-                    List of functional dependencies :
-                    <ul id="dependencies"></ul>
-                </div>
-            </div>
-            <div id="annotation_text">
-                <div id="annotation_text_inner">
-                </div>
-            </div>
-        </div>
+               <div style="width:100%; height:780px; overflow:hidden">
+                  <div id="inner-box">
+                      <div id="input_box">
+                          <div id="input_box_inner">
+                              <div id="input_box_edit">
+                                  <div id="add_attribute" style="margin-bottom: 10px;">
+                                      <div><b>Attributes to add :</b></div>
+                                      <input id="attribute_form"></input>
+                                      <button onclick=addAttribute()>Add attribute</button>
+                                  </div>
+                                  <div id="add_fd" style="margin-bottom: 10px">
+                                      <div><b>Functional Dependency to add :</b></div>
+                                      <input id="fd_left_form"></input>-><input id="fd_right_form"></input>
+                                      <button onclick=addFD()>Add functional dependency</button>
+                                  </div>
+                                  <div id="sampels" style="margin-bottom:10px;">
+                                      <b>Load samples :</b>
+                                      <button onclick=test(1)>Example 1</button>
+                                      <button onclick=test(2)>Example 2</button>
+                                      <button onclick=test(3)>Example 3</button>
+                                      <button onclick=test(4)>Example 4</button>
+                                      <button onclick=test(5)>Example 5</button>
+                                      <button onclick=test(6)>Example 6</button>
+                                  </div>
+                                  <div id="remove_attribute" style="margin-bottom:10px;">
+                                      <select id='remove_attribute_form'>
+                                      </select>
+                                      <button onclick=removeAttributes()>Remove attribute</button>
+                                  </div>
+                                  <div id="remove_dependencies" style="margin-bottom:10px;">
+                                      <select id='remove_dependency_form'>
+                                      </select>
+                                      <button onclick=removeDependencies()>Remove dependency</button>
+                                  </div>
+                                  <button onclick=clearAll()>Clear</button>
+                              </div>
+                              <div id="stop_button" style="margin-bottom:10px;">
+                                  <button onclick=stopExplorationMode()>Stop Exploration Mode</button>
+                              </div>
+                              <div id="operation_buttons" style="margin-bottom:10px;">
+                                  <input id="closure_form"></input>
+                                  <button onclick=findClosure() style="margin-bottom:10px;">Find the closure</button> <br>
+                                  <button onclick=bernsteinAlgorithm()>Bernstein Algorithm</button>
+                                  <button onclick=NFTesterMB(2)>2NF Tester</button>
+                                  <button onclick=NFTesterMB(3)>3NF Tester</button>
+                                  <button onclick=NFTesterMB(5)>BCNF Tester</button>
+                              </div>
+                          </div>
+                      </div>
+                      <div style="height:400px;">
+                          <div id="main_canvas">
+                              <div class="box variables">
+                                  <div id="box_variables_inner">
+                                      <b>List of attributes :</b> 
+                                      <ul id="variables"></ul>
+                                  </div>
+                              </div>
+                          <div class="box dependencies">
+                              <div id="box_dependencies_inner">
+                                  <b>List of functional dependencies :</b>
+                                  <ul id="dependencies"></ul>
+                              </div>
+                          </div>
+                          <div id="annotation_text">
+                              <div id="annotation_text_inner">
+                              </div>
+                          </div>
+                      </div>
 
-        <div id="step_buttons">
-            <div id="step_buttons_inner">
-                Step Buttons :
-                <ul id="clickable_buttons">
-                </ul>
-            </div>
-        </div>
-      </div>
-    </div>
- </div>
-          </div>
-          <hr>
-          <!--/stories-->    
-          <a href="/" class="btn btn-primary pull-right btnNext">More <i class="glyphicon glyphicon-chevron-right"></i></a>
-        </div>
-      </div>                                                     
-    </div><!--/col-12-->
-  </div>
-</div>
-                                                
+                      <div id="step_buttons">
+                          <div id="step_buttons_inner">
+                              Step Buttons :
+                              <ul id="clickable_buttons">
+                              </ul>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+               </div>
+                        </div>
+                      </div>
+                    </div>                                                     
+                  </div><!--/col-12-->
+                </div>
+              </div>
+                                                              
                                                                                 
 <hr>
 

@@ -64,6 +64,8 @@ footer {
 .top-spacer {
   background-color:#ffffff;
   height:40px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 a,a:hover {
@@ -235,8 +237,8 @@ a,a:hover {
 
 #input_box {
     width:100%; 
-    background:green; 
-    height:250px;
+    background:#f6f8f9;
+    height:350px;
 }
 
 #step_buttons_inner, #annotation_text_inner,
