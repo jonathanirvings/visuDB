@@ -53,6 +53,7 @@
                         </select>
                         <button onclick=removeDependencies()>Remove dependency</button>
                     </div>
+                    <button onclick=clearAll()>Clear</button>
                 </div>
                 <div id="stop_button">
                     <button onclick=stopExplorationMode()>Stop Exploration Mode</button>
@@ -195,6 +196,12 @@ function stopExplorationMode() {
 function startExplorationMode() {
     $("#stop_button").show();
     $("#input_box_edit").hide();
+}
+
+function clearAll() {
+    stopExplorationMode();
+    canvasDraw.clearCanvas();
+    canvasDraw.clearButtons();
 }
 
 $(document).ready(function() {
