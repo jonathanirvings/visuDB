@@ -58,7 +58,7 @@ animationWidget.load = function(index) {
     for (var i = 0; i < stateList.length; ++i) {
         $("#stepbutton" + i).css("color","");
     }
-    purple_color = "#8e44ad";
+    purple_color = "#EEEEEE";
     $("#stepbutton" + index).css("color",purple_color );
     animationIndex = index;
     canvasDraw.draw(stateList[index]);

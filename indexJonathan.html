@@ -54,7 +54,7 @@
       
           <!--/stories-->
           <div class="row">    
-               <div style="width:100%; height:780px; overflow:hidden">
+               <div style="width:100%; ">
                   <div id="inner-box">
                       <div id="input_box">
                           <div id="input_box_inner">
@@ -234,14 +234,14 @@ function NFTesterMB(testerID) {
 
 function stopExplorationMode() {
     $("#stop_button").hide();
-    $("#input_box_edit").show();
+    $("#input_box_edit")[0].style.display = "block";
     canvasDraw.clearCanvas();
     canvasDraw.clearButtons();
 }
 
 function startExplorationMode() {
     $("#stop_button").show();
-    $("#input_box_edit").hide();
+    $("#input_box_edit")[0].style.display = "none";
 }
 
 function clearAll() {

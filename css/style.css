@@ -84,7 +84,7 @@ a,a:hover {
 }
 
 .navbar-bright {
-  background-color:#111166;
+  background-color:#333755;
   color:#fff;
   margin-bottom: 0;
   border-width: 0;
@@ -198,7 +198,7 @@ a,a:hover {
 
 #main_canvas .box.variables {
     /*red*/
-    background-color : #FA4B4B;
+    background-color : #cfdfb3;
     /*padding : 10px 10px 10px 10px;*/
     /*margin-left : 10px;*/
     width : 50%;
@@ -209,7 +209,7 @@ a,a:hover {
 
 #main_canvas .box.dependencies {
     /*yellow*/
-    background-color : #FFFF80;
+    background-color : #bbd0a9;
     /*padding : 10px 10px 10px 10px;*/
     /*margin-left : 310px;*/
     float:left;
@@ -223,7 +223,8 @@ a,a:hover {
 }
 
 #step_buttons {
-    background-color : gray;
+    background-color : #8ba697;
+    /*color: #EEEEEE;*/
     height:500px;
     width:60%;
     overflow: auto;
@@ -240,7 +241,6 @@ a,a:hover {
 #input_box {
     width:100%; 
     background:#f6f8f9;
-    height:350px;
 }
 
 #step_buttons_inner, #annotation_text_inner,
@@ -254,7 +254,8 @@ a,a:hover {
 }
 
 #annotation_text {
-    background-color: orange;
+    background-color: #52576d;
+    color: #DDDDDD;
     display:block;
     height:200px;
     width: 100%;
