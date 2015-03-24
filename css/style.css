@@ -23,6 +23,9 @@ footer {
   background-color:#cecece;
  
 }
+body {
+  background-color: #CCCCCC;
+}
 
 
 #masthead {
@@ -53,6 +56,7 @@ footer {
 }
 #topPanel .panel-body {
   padding-top:0px;
+  padding:0px
 }
 
 .navbar.affix {
@@ -63,7 +67,6 @@ footer {
 
 .top-spacer {
   background-color:#ffffff;
-  height:40px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
@@ -93,7 +96,7 @@ a,a:hover {
 .navbar-bright a, .navbar-bright .navbar-brand, #masthead h4 {
   color:#ccccdd;
   font-size:14px;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   letter-spacing:.08em;
 }
 
