@@ -239,6 +239,10 @@ function MainButton() {
         }
         animationWidget.startAnimation(stateList);
     }
+
+    this.draw = function(index) {
+        animationWidget.load(index);
+    }
 }
 
 

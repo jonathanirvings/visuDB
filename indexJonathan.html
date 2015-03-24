@@ -200,4 +200,14 @@ function startExplorationMode() {
 $(document).ready(function() {
     stopExplorationMode();
 });
+
+$(document).keyup(function(event) {
+    var UP = 38;
+    var DOWN = 40;
+    if (event.which == UP) {
+        animationWidget.prev();
+    } else if (event.which == DOWN) {
+        animationWidget.next();
+    }
+});
 </script>

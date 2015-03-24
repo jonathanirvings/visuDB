@@ -272,6 +272,7 @@ var BernsteinAlgorithm = function(_relation) {
             currentState["annotation"] += ")";
         
         }
+        currentState["message"] = "Creating relations";
         stateList.push(currentState);
         var lastAnnotation = currentState["annotation"];
 
