@@ -197,7 +197,8 @@ a,a:hover {
 }
 
 #main_canvas .box.variables {
-    background-color : red;
+    /*red*/
+    background-color : #FA4B4B;
     /*padding : 10px 10px 10px 10px;*/
     /*margin-left : 10px;*/
     width : 50%;
@@ -207,7 +208,8 @@ a,a:hover {
 }
 
 #main_canvas .box.dependencies {
-    background-color : yellow;
+    /*yellow*/
+    background-color : #FFFF80;
     /*padding : 10px 10px 10px 10px;*/
     /*margin-left : 310px;*/
     float:left;
@@ -217,7 +219,7 @@ a,a:hover {
 }
 
 .highlighted {
-    color:orange;
+    color: #4183D7;
 }
 
 #step_buttons {
@@ -252,7 +254,7 @@ a,a:hover {
 }
 
 #annotation_text {
-    background-color:orange;
+    background-color: orange;
     display:block;
     height:200px;
     width: 100%;
