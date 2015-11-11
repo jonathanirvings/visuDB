@@ -58,6 +58,11 @@ function MainButton() {
         canvasDraw.draw(relation);
     }
 
+    this.deleteAll = function() {
+        relation.variables = [];
+        relation.dependencies = [];
+    }
+
     this.bernsteinAlgorithm = function() {
         ba = new BernsteinAlgorithm(relation);
         ba.beginAlgorithm();
